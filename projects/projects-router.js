@@ -13,15 +13,15 @@ router.get('/', (req, res) => {
     });
 });
 
-//???
-router.get('/projects/:id', (req, res) => {
+
+router.get('/:id', (req, res) => {
     const { id } = req.params;
-    Projects.getProjectsById(id)
+    Projects.getProjectsById(id)  
     .then(projs => {
         res.status(200).json({ data: projs })
     })
-    .catch(err => {
-        res.status(500).json({ message: 'Failed to get projects'});
+    .catch(error => { 
+        res.status(500).json({ message: 'Failed to get projects', error:error.message});
     });
 });
 
