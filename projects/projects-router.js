@@ -3,26 +3,14 @@ const express = require('express');
 const Projects = require('./projects-model');
 
 const router = express.Router();
-router.get('/', (req, res) => {
+router.get('/', (req, res) => { 
     Projects.getProjects()
     .then(projs => {
-        res.status(200).json({ data: projs })
+        res.status(200).json({ data: projs }) 
     })
     .catch(err => {
         res.status(500).json({ message: 'Failed to get projects'});
-    });
-});
-
-
-router.get('/:id', (req, res) => {
-    const { id } = req.params;
-    Projects.getProjectsById(id)  
-    .then(projs => {
-        res.status(200).json({ data: projs })
-    })
-    .catch(error => { 
-        res.status(500).json({ message: 'Failed to get projects', error:error.message});
-    });
+    }); 
 });
 
 
@@ -71,7 +59,16 @@ router.get('/tasks/:id', (req, res) => {
     });
 });
 
-
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+    Projects.getProjectsById(id)  
+    .then(projs => {
+        res.status(200).json({ data: projs })
+    })
+    .catch(error => { 
+        res.status(500).json({ message: 'Failed to get projects', error:error.message});
+    });
+});
 
 router.post('/', (req, res) => {
     const projectData = req.body;
